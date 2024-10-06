@@ -1,0 +1,9 @@
+services:
+  terraform:
+    image: hashicorp/terraform:1.9.7
+    env_file:
+      - .env    
+    working_dir: /app
+    entrypoint: ash
+    tty: true
+    platform: linux/amd64
