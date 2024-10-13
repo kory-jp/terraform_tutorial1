@@ -1,9 +1,17 @@
 services:
   terraform:
-    image: hashicorp/terraform:1.9.7
-    env_file:
-      - .env    
-    working_dir: /app
-    entrypoint: ash
+    container_name: 'terraform'
+    image: local/terraform
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    volumes:
+     - ./src:/root/src
+    entrypoint: sh
     tty: true
-    platform: linux/amd64
